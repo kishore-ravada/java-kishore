@@ -20,11 +20,12 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # 2. Hardcoded Secrets (Trivy will flag these as High/Critical)
+
+WORKDIR /appENV AWS_ACCESS_KEY_ID=AKIAY3Z0B1C2D3E4F5G6
+ENV AWS_SECRET_ACCESS_KEY=v8N1S+pL9xR5qT2uW4yZ7A1B3C5D7E9F1G3H5I7J
 ENV AWS_ACCESS_KEY_ID=AKIAY3Z0B1C2D3E4F5G6
 ENV AWS_SECRET_ACCESS_KEY=v8N1S+pL9xR5qT2uW4yZ7A1B3C5D7E9F1G3H5I7J
 
-WORKDIR /app
-# Copy the jar from stage1
 COPY --from=stage1 /opt/target/*.jar ./app.jar
 
 # 3. Permissive permissions (Security risk)
